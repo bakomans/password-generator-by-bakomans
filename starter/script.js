@@ -1,4 +1,4 @@
-// Array of special characters to be included in password
+// Array of special characters to be included in the password
 var specialCharacters = [
   '@',
   '%',
@@ -25,10 +25,10 @@ var specialCharacters = [
   '.'
 ];
 
-// Array of numeric characters to be included in password
+// Array of numeric characters to be included in the password
 var numericCharacters = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 
-// Array of lowercase characters to be included in password
+// Array of lowercase characters to be included in the password
 var lowerCasedCharacters = [
   'a',
   'b',
@@ -58,7 +58,7 @@ var lowerCasedCharacters = [
   'z'
 ];
 
-// Array of uppercase characters to be included in password
+// Array of uppercase characters to be included in the password
 var upperCasedCharacters = [
   'A',
   'B',
@@ -93,33 +93,65 @@ function getPasswordOptions() {
   var length = parseInt(prompt("Choose password (between 8 and 128 characters):"));
   if (isNaN(length) || length < 8 || length > 128) {
     alert("Please enter a valid password between 8 and 128.");
-    return;
-}
+    return null; // Return null to indicate an error
+  }
   var includeSpecial = confirm("Include special characters?");
   var includeNumeric = confirm("Include numeric characters?");
   var includeLowercase = confirm("Include lowercase characters?");
   var includeUppercase = confirm("Include uppercase characters");
 
-// Function for getting a random element from an array
-function getRandom(arr) {
-
+  // Create an options object and return it
+  return {
+    length: length,
+    includeSpecial: includeSpecial,
+    includeNumeric: includeNumeric,
+    includeLowercase: includeLowercase,
+    includeUppercase: includeUppercase,
+  };
 }
 
-// Function to generate password with user input
-function generatePassword() {
+// Function for getting a random element from an array
+function getRandom(arr) {
+  var randomIndex = Math.floor(Math.random() * arr.length);
+  return arr[randomIndex];
+}
 
+// Function to generate a password with user input
+function generatePassword() {
+  var options = getPasswordOptions();
+  if (!options) return;
+
+  var combinedChars = [];
+  if (options.includeSpecial) {
+    combinedChars = combinedChars.concat(specialCharacters);
+  }
+  if (options.includeNumeric) {
+    combinedChars = combinedChars.concat(numericCharacters);
+  }
+  if (options.includeLowercase) {
+    combinedChars = combinedChars.concat(lowerCasedCharacters);
+  }
+  if (options.includeUppercase) {
+    combinedChars = combinedChars.concat(upperCasedCharacters);
+  }
+
+  var password = "";
+  for (var i = 0; i < options.length; i++) {
+    password += getRandom(combinedChars);
+  }
+
+  return password;
 }
 
 // Get references to the #generate element
 var generateBtn = document.querySelector('#generate');
 
-// Write password to the #password input
+// Add an event listener to the generate button
+generateBtn.addEventListener('click', writePassword);
+
+// Function to write the generated password to the #password textarea
 function writePassword() {
   var password = generatePassword();
   var passwordText = document.querySelector('#password');
-
   passwordText.value = password;
 }
-
-// Add event listener to generate button
-generateBtn.addEventListener('click', writePassword);
