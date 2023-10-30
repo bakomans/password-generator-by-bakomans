@@ -1,6 +1,6 @@
 # Password Generator
 
-## Description
+## About this project
 
 This is a simple JavaScript-based Password Generator web application. It allows users to generate strong and secure passwords with various options, including password length and character types (special characters, numbers, lowercase, and uppercase letters).
 
