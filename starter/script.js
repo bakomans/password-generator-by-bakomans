@@ -139,7 +139,7 @@ function generatePassword() {
   for (var i = 0; i < options.length; i++) {
     password += getRandom(combinedChars);
   }
-
+// return
   return password;
 }
 
