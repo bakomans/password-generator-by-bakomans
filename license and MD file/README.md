@@ -20,6 +20,10 @@ This password generator is a helpful tool for creating strong and secure passwor
 
 This project is licensed as the MIT License 
 
+## Photos 
+
+![Password generator by bakomans](image.png)
+
 ## Thanks 
 
 Thank to everyone to Look at this project 
